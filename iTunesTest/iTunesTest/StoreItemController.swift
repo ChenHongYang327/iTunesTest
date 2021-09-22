@@ -8,12 +8,23 @@ class StoreItemController {
     
     func fetchItems (term: String, media: String, lang: String, limit: Int, completion: @escaping ([StoreItem]?) -> Void){
         
-        let url = URL(string: "https://itunes.apple.com/search?term=\(term)&media=\(media)&lang=\(lang)&limit=\(limit)")
+        // url 方法1
+//        let url = URL(string: "https://itunes.apple.com/search?term=\(term)&media=\(media)&lang=\(lang)&limit=\(limit)")
         
+        
+        // url 方法2 : 
+        let baseURL = URL(string: "https://itunes.apple.com/search")!
+
+        var conponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
+        conponents?.queryItems = [
+            URLQueryItem(name: "term", value: term),
+            URLQueryItem(name: "media", value: media),
+            URLQueryItem(name: "lang", value: lang),
+            URLQueryItem(name: "limit", value: String(limit))
+        ]
+        let url = conponents?.url
+    
         URLSession.shared.dataTask(with: url!) { data, reponce, error in
-            
-            print(url)
-            print(error)
             
             if let data = data {
                 // 要解碼

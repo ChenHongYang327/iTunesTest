@@ -1,9 +1,4 @@
-//
-//  MainTVC.swift
-//  iTunesTest
-//
-//  Created by 陳鋐洋 on 2021/9/22.
-//
+
 
 import UIKit
 
